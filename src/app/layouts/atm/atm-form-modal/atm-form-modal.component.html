@@ -1,0 +1,64 @@
+<div class="atm-form-header">
+  <h2 mat-dialog-title>{{ isEdit ? "Edit ATM" : "Add new ATM" }}</h2>
+  <button
+    *ngIf="isEdit || isViewMode"
+    mat-button
+    (click)="navigateToAtmDetail(atmForm.get('id')?.value)"
+  >
+    View detail
+  </button>
+</div>
+<mat-dialog-content>
+  <form [formGroup]="atmForm">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>ATM Name</mat-label>
+      <input matInput formControlName="atmName" />
+      <mat-error *ngIf="atmForm.get('atmName')?.invalid"
+        >ATM Name is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Manufacturer</mat-label>
+      <input matInput formControlName="manufacturer" />
+      <mat-error *ngIf="atmForm.get('manufacturer')?.invalid"
+        >Manufacturer is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Type</mat-label>
+      <input matInput formControlName="type" />
+      <mat-error *ngIf="atmForm.get('type')?.invalid"
+        >Type is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Serial Number</mat-label>
+      <input matInput formControlName="serialNumber" />
+      <mat-error *ngIf="atmForm.get('serialNumber')?.hasError('required')"
+        >Serial Number is required</mat-error
+      >
+      <mat-error *ngIf="atmForm.get('serialNumber')?.hasError('pattern')"
+        >Please enter a valid number</mat-error
+      >
+    </mat-form-field>
+
+    <input type="file" formControlName="image" />
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="form-actions">
+  <button mat-button (click)="closeForm()">Cancel</button>
+  <ng-container *ngIf="!isViewMode">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="submitForm()"
+      [disabled]="!atmForm.dirty"
+    >
+      Save
+    </button>
+  </ng-container>
+</mat-dialog-actions>

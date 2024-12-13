@@ -1,0 +1,6 @@
+<div class="atm-detail" *ngIf="atm?.id">
+  <h1>ATM Detail: {{ atm?.atm_name }}</h1>
+  <p *ngIf="atm?.manufacturer">Manufacturer: {{ atm?.manufacturer }}</p>
+  <p *ngIf="atm?.serial_number">Serial Number: {{ atm?.serial_number }}</p>
+  <p *ngIf="atm?.type">Type: {{ atm?.type }}</p>
+</div>

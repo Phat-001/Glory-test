@@ -1,0 +1,1 @@
+export const ATM_LIST_KEY = 'atmList';

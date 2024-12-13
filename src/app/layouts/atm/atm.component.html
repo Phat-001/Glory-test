@@ -1,0 +1,91 @@
+<div class="mat-elevation-z8">
+  <div class="table-header">
+    <input
+      [formControl]="searchControl"
+      placeholder="Search ATM..."
+      class="atm-search"
+    />
+    <div class="table-header-actions">
+      <button mat-raised-button (click)="addNewATM()">Add new ATM</button>
+      <button mat-raised-button (click)="exportData()">Export</button>
+      <button mat-raised-button (click)="refreshTable()">Refresh</button>
+    </div>
+  </div>
+  <div *ngIf="dataSource.data.length > 0; else empty">
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" class="table-content">
+        <ng-container matColumnDef="atm_name">
+          <th mat-header-cell *matHeaderCellDef>ATM Name</th>
+          <td mat-cell *matCellDef="let element">{{ element?.atm_name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="manufacturer">
+          <th mat-header-cell *matHeaderCellDef>Manufacturer</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element?.manufacturer }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let element">{{ element?.type }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="serial_number">
+          <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element?.serial_number }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="image">
+          <th mat-header-cell *matHeaderCellDef>Image</th>
+          <td mat-cell *matCellDef="let element">
+            <img
+              src="assets/default-image.png"
+              alt="default-image"
+              class="image"
+            />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <div class="table-content-atm-actions">
+              <button mat-raised-button (click)="handleViewATM(element)">
+                View
+              </button>
+              <button mat-raised-button (click)="editATM(element)">Edit</button>
+              <button
+                mat-stroked-button
+                (click)="deleteATM(element)"
+                color="warn"
+              >
+                Delete
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="dataSource.filteredData.length === 0">
+    <p class="no-data">No records found.</p>
+  </div>
+
+  <mat-paginator
+    [pageSizeOptions]="pageSizeOptions"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+</div>
+
+<ng-template #empty>
+  <h3>empty</h3>
+</ng-template>
